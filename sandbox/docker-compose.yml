@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  python-sandbox:
+    build: .
+    container_name: sandbox
+    volumes:
+      - ./code-input:/home/sandbox_user/app/input:ro
+      - ./code-output:/home/sandbox_user/app/output
+      - ./data:/home/sandbox_user/app/data
+    working_dir: /home/sandbox_user/app
+    user: sandbox_user
+    network_mode: none  # Completely isolate from network
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M,noexec,nosuid,nodev
+    stdin_open: true
+    tty: true

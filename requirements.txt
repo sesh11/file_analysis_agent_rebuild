@@ -1,0 +1,11 @@
+black 
+autopep8
+matplotlib 
+seaborn
+plotly
+pandas
+numpy
+nbstripout
+pre-commit
+anthropic
+typing
