@@ -1,0 +1,42 @@
+Data Analysis Agent
+
+Overview
+
+As AI agents continue to proliferate across large enterprises, they are fundamentally transforming how workers interact with data. Agents can democratize data analysis by allowing users to query datasets conversationally and receive automated insights. This speed can provide a unique strategic advantage -- no need to wait for hours and days for insights. Decisions can be made real-time, business can respond to situations rapidly, non-technical domain experts can continue to stay focused on their domains on focus on value generation. 
+
+Note: 
+This is by no means a production ready implementation. This was a personal exercise for me to take an idea, develop a prototype, lean, and have fun along the way. 
+
+Technical Summary
+This project implements a secure, object-oriented AI agent for automated CSV data analysis using Claude AI. The system combines natural language processing with dynamic code generation and containerized execution to provide a safe, scalable data analysis platform.
+
+Key Components:
+AnalysisAgent: Core orchestration class that coordinates the analysis workflow
+FileAccessTool: Handles secure file transfer from host to isolated Docker container
+PythonExecTool: Executes AI-generated Python code in a hardened sandbox environment
+Claude Integration: Leverages Anthropic's Claude API for intelligent code generation
+Architecture Features:
+Security-First Design: All code execution occurs in isolated, read-only Docker containers with no network access
+Dynamic Code Generation: Claude AI generates custom Python/pandas code based on user queries and dataset structure
+Object-Oriented Framework: Modular design inspired by OpenAI's agentic patterns for maintainability and extensibility
+Containerized Execution: Docker-based sandbox prevents system compromise and ensures consistent execution environment
+
+Workflow:
+User provides dataset filename and natural language query
+Agent securely copies CSV file to isolated container
+Claude generates custom Python analysis code based on user intent
+Code executes safely in hardened Docker environment
+Results are returned to user with full analysis output
+
+Security Measures:
+Container isolation with dropped capabilities and read-only filesystem
+No network access from execution environment
+Non-root user execution
+Secure file handling with validation
+This implementation demonstrates how AI agents can make sophisticated data analysis accessible to non-technical users while maintaining enterprise-grade security standards.
+
+Reference Implementation
+This project draws inspiration from OpenAI's object-oriented agentic approach, particularly their secure code interpreter design patterns. The implementation focuses on production-ready code rather than conceptual demonstrations. I highly recommend AI engineers and builders to review this.
+
+OpenAI Secure Code Interpreter Tool
+https://github.com/openai/openai-cookbook/blob/main/examples/object_oriented_agentic_approach/Secure_code_interpreter_tool_for_LLM_agents.ipynb
