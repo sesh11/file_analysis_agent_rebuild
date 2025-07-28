@@ -30,7 +30,6 @@ class AnalysisAgent():
         file_access = FileAccessTool()
         execute_python = PythonExecTool()
 
-
     def analyze(self, filename: str, user_input: str, file_desc: str, system_prompt: str = "") -> str:
         try:
             file_path = f"/Users/seshn/dev/claude/experiments/financials/data/{filename}"
@@ -41,15 +40,49 @@ class AnalysisAgent():
             if "successful" not in copy_result.lower():
                 return f"Couldn't copy the file. {copy_result}"
             
+            file_headers_prompt = f"""
+            dataset: {filename}
+            Generate ONLY python code to analyze the headers of the csv file. The intent is to understand the column names.
+            Requirements: 
+            - Return only executable python code, no explanations
+            - The code should return the first 5 lines of the CSV file to look at the column names and the data
+            - Import the necessary libraries (pandas, etc.) to support the analysis
+            - Print clear results
+            - Handle exceptions gracefully
+            
+            IMPORTANT: Return only the Python code without any markdown explanations, formatting, or additional text.
+
+            Example output format: 
+            import pandas as pd
+            import numpy as np
+            df = pd.read_csv('/home/sandbox_user/app/data/data.csv)'
+            """             
+
+            file_headers_code = util.invoke_claude(
+                model="claude-3-5-sonnet-20240620",
+                prompt=file_headers_prompt,
+                system_prompt=self.system_prompt
+            )
+
+            file_headers = self.execute_python.execute({"python_code": file_headers_code})
+            
+            if "error" in file_headers:
+                return f"Error in running the python code {file_headers}"
+
+            print("column names have been retrieved")
+            print(file_headers)
+            print("generating the python code ...........")
 
             initial_prompt = f"""
             dataset: {filename}
             user request: {user_input}
             additional context: {file_desc}
+            column names: {file_headers}
             Generate ONLY python code to analyze the csv file. 
             Requirements: 
             - Return only executable python code, no explanations
             - Import the necessary libraries (pandas, etc.)
+            - Column names are self explanatory and can be interpreted to match the users request
             - Load the CSV file from /home/sandbox_user/app/data/{filename}
             - Perform the analysis requested by the user
             - Print clear results

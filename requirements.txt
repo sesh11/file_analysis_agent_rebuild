@@ -9,3 +9,4 @@ nbstripout
 pre-commit
 anthropic
 typing
+dotenv
