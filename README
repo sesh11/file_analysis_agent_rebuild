@@ -1,16 +1,22 @@
-Data Analysis Agent
+#**Data Analysis Agent**
 
-Overview
+##**Overview**
+As AI agents continue to proliferate across large enterprises, they are fundamentally transforming how workers interact with data. Agents can democratize data analysis -- allow users to query datasets conversationally and receive automated insights. This speed can provide a unique strategic advantage -- no need to wait for hours and days for insights. Decisions can be made real-time, business can respond to situations rapidly, non-technical domain experts can continue to stay focused on their domains on focus on value generation. 
 
-As AI agents continue to proliferate across large enterprises, they are fundamentally transforming how workers interact with data. Agents can democratize data analysis by allowing users to query datasets conversationally and receive automated insights. This speed can provide a unique strategic advantage -- no need to wait for hours and days for insights. Decisions can be made real-time, business can respond to situations rapidly, non-technical domain experts can continue to stay focused on their domains on focus on value generation. 
+There was a time when data mining, data gathering and analytics was it's own phase of a given project that required weeks if not months and the need to specifically staff data analysts and scientists. 
 
-Note: 
-This is by no means a production ready implementation. This was a personal exercise for me to take an idea, develop a prototype, lean, and have fun along the way. 
+Note that this capability already exists ChatGPT or Claude and enterprises that already subscribe to these can activate them. For builders, this is a nice way of getting it setup locally to give you a little bit more flexibility and integrate it into your custom workflows. Imagine being able to interact with the agent while in workshops and meetings to bring together insights that furthers the conversations to drive strategy and decision making. All this while in the room and not as an after thought. 
 
-Technical Summary
-This project implements a secure, object-oriented AI agent for automated CSV data analysis using Claude AI. The system combines natural language processing with dynamic code generation and containerized execution to provide a safe, scalable data analysis platform.
+**Note:** 
+This is by no means a production ready implementation. This was a personal exercise for me to take an idea, develop a prototype, learn, and have fun along the way. I draw inspiration from OpenAI's object-oriented agentic approach, particularly their secure code interpreter design pattern. This is a conceptual demonstration and can work for simple use cases. I welcome feedback. 
 
-Key Components:
+OpenAI Secure Code Interpreter Tool
+https://github.com/openai/openai-cookbook/blob/main/examples/object_oriented_agentic_approach/Secure_code_interpreter_tool_for_LLM_agents.ipynb
+
+##**Technical Summary**
+This project implements a secure AI agent for automated CSV data analysis using Claude. The system combines natural language processing with dynamic code generation and containerized execution to provide a safe, scalable data analysis solution.
+
+###**Key Components:**
 AnalysisAgent: Core orchestration class that coordinates the analysis workflow
 FileAccessTool: Handles secure file transfer from host to isolated Docker container
 PythonExecTool: Executes AI-generated Python code in a hardened sandbox environment
@@ -21,22 +27,15 @@ Dynamic Code Generation: Claude AI generates custom Python/pandas code based on 
 Object-Oriented Framework: Modular design inspired by OpenAI's agentic patterns for maintainability and extensibility
 Containerized Execution: Docker-based sandbox prevents system compromise and ensures consistent execution environment
 
-Workflow:
+###**Workflow:**
 User provides dataset filename and natural language query
 Agent securely copies CSV file to isolated container
 Claude generates custom Python analysis code based on user intent
 Code executes safely in hardened Docker environment
 Results are returned to user with full analysis output
 
-Security Measures:
+###**Security Measures:**
 Container isolation with dropped capabilities and read-only filesystem
 No network access from execution environment
 Non-root user execution
 Secure file handling with validation
-This implementation demonstrates how AI agents can make sophisticated data analysis accessible to non-technical users while maintaining enterprise-grade security standards.
-
-Reference Implementation
-This project draws inspiration from OpenAI's object-oriented agentic approach, particularly their secure code interpreter design patterns. The implementation focuses on production-ready code rather than conceptual demonstrations. I highly recommend AI engineers and builders to review this.
-
-OpenAI Secure Code Interpreter Tool
-https://github.com/openai/openai-cookbook/blob/main/examples/object_oriented_agentic_approach/Secure_code_interpreter_tool_for_LLM_agents.ipynb
